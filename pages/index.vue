@@ -6,9 +6,16 @@
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="text in texts" :key="text">
         <v-container>
-          <v-row :align="alignment" :justify="justify">
-            <v-col cols="4" v-for="(t, key, index) in text" :key="index">
-              <v-card>
+          <v-row>
+            <v-col
+              cols="12"
+              sm="6"
+              md="4"
+              v-for="(t, key, index) in text"
+              :key="index"
+              class="d-flex"
+            >
+              <v-card width="100%">
                 <v-card-text>
                   {{ t }}
                 </v-card-text>
@@ -27,8 +34,13 @@
 <script>
 export default {
   data() {
-    const init = [92, 88, 64, 86]
-    const good = ['aa', 'bb', 'cc']
+    const init = [911111, 88, 64, 86, 111111, 5555]
+    const good = [
+      'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+      'bb',
+      'cc',
+      'ddddddd'
+    ]
     return {
       titles: [
         { title: '桃太郎' },
