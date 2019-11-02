@@ -16,6 +16,9 @@
               class="d-flex"
             >
               <v-card width="100%">
+                <v-card-title>
+                  Unlimited music now
+                </v-card-title>
                 <v-card-text>
                   {{ t }}
                 </v-card-text>
@@ -25,9 +28,6 @@
         </v-container>
       </v-tab-item>
     </v-tabs-items>
-    <!-- <ul>
-      <li v-for="(item, index) in items" :key="index">{{ item.title }}</li>
-    </ul> -->
   </v-layout>
 </template>
 
