@@ -1,15 +1,21 @@
 <template>
   <v-layout column justify-center>
-    <v-tabs v-model="tab" background-color="transparent" color="basil" grow>
+    <v-tabs v-model="tab" background-color="transparent" grow>
       <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="text in texts" :key="text">
-        <v-card v-for="(t, key, index) in text" :key="index">
-          <v-card-text>
-            {{ t }}
-          </v-card-text>
-        </v-card>
+        <v-container>
+          <v-row :align="alignment" :justify="justify">
+            <v-col cols="4" v-for="(t, key, index) in text" :key="index">
+              <v-card>
+                <v-card-text>
+                  {{ t }}
+                </v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
       </v-tab-item>
     </v-tabs-items>
     <!-- <ul>
