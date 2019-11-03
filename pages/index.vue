@@ -42,10 +42,25 @@ export default {
       'ddddddd'
     ]
     return {
-      titles: [
-        { title: '桃太郎' },
-        { title: 'delta大冒険' },
-        { title: '神々の誕生' }
+      datas: [
+        {title: '桃太郎',
+         content: [
+           {detail: "dafadfa"},
+           {detail: "daaaaaa"}
+         ]
+        },
+        {title: 'delta大冒険',
+         content: [
+           {detail: "dafadfa"},
+           {detail: "daaaaaa"}
+         ]
+        },
+        {title: '神々',
+         content: [
+           {detail: "dafadfa"},
+           {detail: "daaaaaa"}
+         ]
+        }
       ],
       tab: null,
       items: ['新着順', 'いいね順'],
