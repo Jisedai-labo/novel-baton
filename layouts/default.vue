@@ -13,11 +13,9 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        {{ isAuthenticated }}
         <nuxt />
       </v-container>
     </v-content>
-
     <v-footer app>
       <span>&copy; 201911</span>
     </v-footer>
@@ -46,9 +44,7 @@ export default {
         .signInWithPopup(provider)
         .then(function(result) {
           const db = firebase.firestore()
-          const docRef = db
-            .collection('user')
-            .doc(result.credential.accessToken)
+          const docRef = db.collection('user').doc(result.user.uid)
           docRef.get().then(function(doc) {
             if (doc.exists) {
               docRef.update({
@@ -64,7 +60,7 @@ export default {
                 update_timestamp: firebase.firestore.FieldValue.serverTimestamp()
               }
               db.collection('user')
-                .doc(result.credential.accessToken)
+                .doc(result.user.uid)
                 .set(data)
             }
           })

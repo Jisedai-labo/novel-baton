@@ -1,15 +1,13 @@
 <template>
   <v-card class="mx-auto py-6">
-    <v-card-title class="display-2">
-      タイトルが入ります！！！！！！！
-    </v-card-title>
+    <v-card-title class="display-2">タイトル: {{ novel }}</v-card-title>
     <v-card-text>
       <p>作成日：2019/11/02</p>
       <p class="display-1 text--primary mt-12">
         文章（作成途中）
       </p>
       <div class="text--primary">
-        ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。ここに文章が入ります。
+        {{ novel }}
       </div>
       <p class="display-1 text--primary mt-12">
         文章を追加する
@@ -35,6 +33,7 @@
   </v-card>
 </template>
 <script>
+import firebase from '~/plugins/firebase'
 export default {
   data: () => ({
     valid: true,
@@ -42,7 +41,19 @@ export default {
     postRules: [
       (v) => !!v || '文章を入力してください',
       (v) => (v && v.length <= 140) || '文章は140文字以内で入力してください'
-    ]
-  })
+    ],
+    novel: {}
+  }),
+  mounted() {
+    const db = firebase.firestore()
+    const arrays = []
+    db.collection('novel')
+      .doc(this.$route.params.id)
+      .get()
+      .then(function(doc) {
+        arrays.push(doc.data())
+      })
+    this.novel = arrays[0]
+  }
 }
 </script>
