@@ -4,7 +4,6 @@
       <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
     </v-tabs>
     {{ novels }}
-    {{ numbera }}
     <v-tabs-items v-model="tab">
       <v-tab-item v-for="text in texts" :key="text">
         <v-container>
@@ -44,12 +43,10 @@ export default {
       novels: [''],
       tab: null,
       items: ['新着順', 'いいね順'],
-      texts: [init, good],
-      numbera: 1
+      texts: [init, good]
     }
   },
   mounted() {
-    this.numbera = 2
     const db = firebase.firestore()
     const arrays = []
     db.collection('novel')
