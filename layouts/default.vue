@@ -13,7 +13,6 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        {{ user }}
         <nuxt />
       </v-container>
     </v-content>
