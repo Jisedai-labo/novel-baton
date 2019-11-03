@@ -1,10 +1,12 @@
 <template>
   <v-layout column justify-center>
     <v-tabs v-model="tab" background-color="transparent" grow>
-      <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
+      <v-tab v-for="(item, item_index) in items" :key="item_index">
+        {{ item }}
+      </v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <v-tab-item v-for="text in texts" :key="text">
+      <v-tab-item v-for="(text, text_index) in texts" :key="text_index">
         <v-container>
           <v-row>
             <v-col
@@ -39,7 +41,8 @@ export default {
     //   'ddddddd'
     // ]
     return {
-      novels: [''],
+      newly_novels: [],
+      likely_novels: [],
       tab: null,
       items: ['新着順', 'いいね順'],
       texts: []
@@ -56,8 +59,9 @@ export default {
           arrays.push(doc.data())
         })
       })
-    this.novels = arrays
-    this.texts = [this.novels, this.novels]
+    this.newly_novels = arrays
+    this.likely_novels = arrays
+    this.texts = [this.newly_novels, this.likely_novels]
   }
 }
 </script>
