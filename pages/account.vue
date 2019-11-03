@@ -2,7 +2,7 @@
   <div>
     <!-- ログイン中に表示される画面 -->
     <div v-if="isAuthenticated">
-      {{ user.displayName }}でログイン中です
+      {{ user }}でログイン中です
       <br />
       <button @click="logout">ログアウト</button>
       <br />
@@ -49,27 +49,28 @@ export default {
         .auth()
         .signInWithPopup(provider)
         .then(function(result) {
-          /* const token = result.credential.accessToken
-          const secret = result.credential.secret
-          const user = result.user */
-        })
-        .catch(function(error) {
-          console.log(error.message)
-          /* const errorCode = error.code
-          const errorMessage = error.message
-          const email = error.email
-          const credential = error.credential */
-        })
-      /* firebase
-        .auth()
-        .signInWithEmailAndPassword(this.email, this.password)
-        .then((user) => {
+          const db = firebase.firestore()
+          const docRef = db
+            .collection('user')
+            .doc(result.credential.accessToken)
+          docRef.get().then(function(doc) {
+            if (doc.exists) {
+              docRef.update({
+                name: result.user.displayName,
+                photoURL: result.user.photoURL
+              })
+            } else {
+              const data = {
+                name: result.user.displayName,
+                photoURL: result.user.photoURL
+              }
+              db.collection('user')
+                .doc(result.credential.accessToken)
+                .set(data)
+            }
+          })
           // ログインしたら飛ぶページを指定
-          // this.$router.push("/member-page")
         })
-        .catch((error) => {
-          alert(error)
-        }) */
     },
     logout() {
       firebase
