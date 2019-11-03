@@ -13,11 +13,9 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        {{ user }}
         <nuxt />
       </v-container>
     </v-content>
-
     <v-footer app>
       <span>&copy; 201911</span>
     </v-footer>
