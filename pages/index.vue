@@ -16,12 +16,8 @@
               class="d-flex"
             >
               <v-card width="100%">
-                <v-card-title>
-                  Unlimited music now
-                </v-card-title>
-                <v-card-text>
-                  {{ t }}
-                </v-card-text>
+                <v-card-title>Unlimited music now</v-card-title>
+                <v-card-text>{{ t }}</v-card-text>
               </v-card>
             </v-col>
           </v-row>
@@ -43,23 +39,17 @@ export default {
     ]
     return {
       datas: [
-        {title: '桃太郎',
-         content: [
-           {detail: "dafadfa"},
-           {detail: "daaaaaa"}
-         ]
+        {
+          title: '桃太郎',
+          content: [{ detail: 'dafadfa' }, { detail: 'daaaaaa' }]
         },
-        {title: 'delta大冒険',
-         content: [
-           {detail: "dafadfa"},
-           {detail: "daaaaaa"}
-         ]
+        {
+          title: 'delta大冒険',
+          content: [{ detail: 'dafadfa' }, { detail: 'daaaaaa' }]
         },
-        {title: '神々',
-         content: [
-           {detail: "dafadfa"},
-           {detail: "daaaaaa"}
-         ]
+        {
+          title: '神々',
+          content: [{ detail: 'dafadfa' }, { detail: 'daaaaaa' }]
         }
       ],
       tab: null,
