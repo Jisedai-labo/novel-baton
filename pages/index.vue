@@ -1,75 +1,63 @@
 <template>
-  <v-layout column justify-center align-center>
-    <v-flex xs12 sm8 md6>
-      <div class="text-center">
-        <logo />
-        <vuetify-logo />
-      </div>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a href="https://vuetifyjs.com" target="_blank"> documentation </a>.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a href="https://chat.vuetifyjs.com/" target="_blank" title="chat">
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              title="contribute"
+  <v-layout column justify-center>
+    <v-tabs v-model="tab" background-color="transparent" grow>
+      <v-tab v-for="item in items" :key="item">{{ item }}</v-tab>
+    </v-tabs>
+    <v-tabs-items v-model="tab">
+      <v-tab-item v-for="text in texts" :key="text">
+        <v-container>
+          <v-row>
+            <v-col
+              v-for="(t, index) in text"
+              :key="index"
+              cols="12"
+              sm="6"
+              md="4"
+              class="d-flex"
             >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a href="https://nuxtjs.org/" target="_blank">
-            Nuxt Documentation
-          </a>
-          <br />
-          <a href="https://github.com/nuxt/nuxt.js" target="_blank">
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire">
-            Continue
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+              <v-card width="100%">
+                <v-card-title>{{ t.title }}</v-card-title>
+                <v-card-text>{{ t.headline }}</v-card-text>
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-tab-item>
+    </v-tabs-items>
   </v-layout>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
-
+import firebase from '~/plugins/firebase'
 export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  data() {
+    // const init = [911111, 88, 64, 86, 111111, 5555]
+    // const good = [
+    //   'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
+    //   'bb',
+    //   'cc',
+    //   'ddddddd'
+    // ]
+    return {
+      novels: [''],
+      tab: null,
+      items: ['新着順', 'いいね順'],
+      texts: []
+    }
+  },
+  mounted() {
+    const db = firebase.firestore()
+    const arrays = []
+    db.collection('novel')
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // this.novels = doc.data()
+          arrays.push(doc.data())
+        })
+      })
+    this.novels = arrays
+    this.texts = [this.novels, this.novels]
   }
 }
 </script>
