@@ -13,8 +13,6 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        {{ getUser }}
-        {{ isAuthenticated }}
         <nuxt />
       </v-container>
     </v-content>
