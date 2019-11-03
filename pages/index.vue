@@ -17,10 +17,14 @@
               md="4"
               class="d-flex"
             >
-              <v-card width="100%">
-                <v-card-title>{{ t.title }}</v-card-title>
-                <v-card-text>{{ t.headline }}</v-card-text>
-              </v-card>
+              <v-hover v-slot:default="{ hover }">
+                <v-card width="100%" :elevation="hover ? 6 : 2">
+                  <nuxt-link :to="t.url" class="d-block" style="height: 100%;">
+                    <v-card-title>{{ t.title }}</v-card-title>
+                    <v-card-text>{{ t.headline }}</v-card-text>
+                  </nuxt-link>
+                </v-card>
+              </v-hover>
             </v-col>
           </v-row>
         </v-container>
@@ -45,7 +49,8 @@ export default {
       likely_novels: [],
       tab: null,
       items: ['新着順', 'いいね順'],
-      texts: []
+      texts: [],
+      novelId: this.$route.params.id
     }
   },
   mounted() {
@@ -56,7 +61,9 @@ export default {
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           // this.novels = doc.data()
-          arrays.push(doc.data())
+          const raw = doc.data()
+          raw.url = 'posts/' + doc.id
+          arrays.push(raw)
         })
       })
     this.newly_novels = arrays
@@ -65,3 +72,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+.v-application a {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
