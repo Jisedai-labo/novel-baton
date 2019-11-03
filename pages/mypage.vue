@@ -1,12 +1,12 @@
 <template>
   <v-layout column justify-center>
-    <p>{{ user }}</p>
-    <br />
+    <b>{{ user }}</b>
+    <img :src="user.photoURL" width="134" class="icon" />
+    <b class="name">{{ user.displayName }}</b>
     <v-tabs v-model="tab" background-color="transparent" grow>
       <v-tab v-for="(item, index) in items" :key="index">{{ item }}</v-tab>
     </v-tabs>
     <v-tabs-items v-model="tab">
-      <!-- 投稿履歴 -->
       <v-tab-item>
         <v-container>
           <v-row>
@@ -105,3 +105,12 @@ export default {
   }
 }
 </script>
+<style scoped>
+.icon,
+.name {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  float: left;
+}
+</style>
