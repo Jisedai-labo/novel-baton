@@ -45,20 +45,20 @@ export default {
       datas: [
         {title: '桃太郎',
          content: [
-           {detail: "dafadfa"},
-           {detail: "daaaaaa"}
+           {body: "dafadfa"},
+           {body: "daaaaaa"}
          ]
         },
         {title: 'delta大冒険',
          content: [
-           {detail: "dafadfa"},
-           {detail: "daaaaaa"}
+           {body: "dafadfa"},
+           {body: "daaaaaa"}
          ]
         },
         {title: '神々',
          content: [
-           {detail: "dafadfa"},
-           {detail: "daaaaaa"}
+           {body: "dafadfa"},
+           {body: "daaaaaa"}
          ]
         }
       ],
