@@ -13,8 +13,7 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        {{ getUser }}
-        {{ isAuthenticated }}
+        {{ user }}
         <nuxt />
       </v-container>
     </v-content>
@@ -47,9 +46,7 @@ export default {
         .signInWithPopup(provider)
         .then(function(result) {
           const db = firebase.firestore()
-          const docRef = db
-            .collection('user')
-            .doc(result.credential.accessToken)
+          const docRef = db.collection('user').doc(result.user.uid)
           docRef.get().then(function(doc) {
             if (doc.exists) {
               docRef.update({
@@ -62,7 +59,7 @@ export default {
                 photoURL: result.user.photoURL
               }
               db.collection('user')
-                .doc(result.credential.accessToken)
+                .doc(result.user.uid)
                 .set(data)
             }
           })
