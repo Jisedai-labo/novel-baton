@@ -17,10 +17,14 @@
               md="4"
               class="d-flex"
             >
-              <v-card width="100%">
-                <v-card-title>{{ t.title }}</v-card-title>
-                <v-card-text>{{ t.headline }}</v-card-text>
-              </v-card>
+              <v-hover v-slot:default="{ hover }">
+                <v-card width="100%" :elevation="hover ? 6 : 2">
+                  <nuxt-link to="/posts/" class="d-block" style="height: 100%;">
+                    <v-card-title>{{ t.title }}</v-card-title>
+                    <v-card-text>{{ t.headline }}</v-card-text>
+                  </nuxt-link>
+                </v-card>
+              </v-hover>
             </v-col>
           </v-row>
         </v-container>
@@ -65,3 +69,10 @@ export default {
   }
 }
 </script>
+<style scoped>
+.v-application a {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
