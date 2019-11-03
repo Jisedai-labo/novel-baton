@@ -13,7 +13,6 @@
     </v-app-bar>
     <v-content>
       <v-container>
-        {{ getUser }}
         {{ isAuthenticated }}
         <nuxt />
       </v-container>
@@ -54,12 +53,15 @@ export default {
             if (doc.exists) {
               docRef.update({
                 name: result.user.displayName,
-                photoURL: result.user.photoURL
+                photoURL: result.user.photoURL,
+                update_timestamp: firebase.firestore.FieldValue.serverTimestamp()
               })
             } else {
               const data = {
                 name: result.user.displayName,
-                photoURL: result.user.photoURL
+                photoURL: result.user.photoURL,
+                insert_timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+                update_timestamp: firebase.firestore.FieldValue.serverTimestamp()
               }
               db.collection('user')
                 .doc(result.credential.accessToken)

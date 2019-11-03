@@ -18,7 +18,7 @@
               class="d-flex"
             >
               <v-card width="100%">
-                <v-card-title>{{ t.title }}</v-card-title>
+                <v-card-title>{{ t }}</v-card-title>
                 <v-card-text>{{ t.headline }}</v-card-text>
               </v-card>
             </v-col>
@@ -56,7 +56,9 @@ export default {
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
           // this.novels = doc.data()
-          arrays.push(doc.data())
+          const raw = doc.data()
+          raw.id = doc.id
+          arrays.push(raw)
         })
       })
     this.newly_novels = arrays
