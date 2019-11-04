@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto py-6">
-    <dvi v-if="isAuthenticated">
+    <div v-if="isAuthenticated">
       <v-card-title class="display-2">新規投稿</v-card-title>
       <v-card-text>
         <p>作成日：2019/11/02</p>
@@ -39,7 +39,7 @@
           <v-btn color="pink" text to="/">ホームへ戻る</v-btn>
         </v-snackbar>
       </div>
-    </dvi>
+    </div>
     <div v-else>
       投稿するにはログインが必要です。
     </div>

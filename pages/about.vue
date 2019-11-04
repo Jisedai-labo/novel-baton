@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <v-card>
+    <v-card width="100%">
       <v-card-title class="headline">About</v-card-title>
       <v-card-text>
         <p class="title mt-8">Essay Batonとは？</p>
