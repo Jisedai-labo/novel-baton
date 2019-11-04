@@ -134,7 +134,11 @@ export default {
         ) +
         '日'
       if ('favoritedBy' in data) {
-        this.isLiked = !data.favoritedBy.indexOf(this.$store.state.user.uid)
+        if (data.favoritedBy.includes(this.$store.state.user.uid)) {
+          this.isLiked = true
+        } else {
+          this.isLiked = false
+        }
       } else {
         this.isLiked = false
       }
