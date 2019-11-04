@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols="9" sm="10">
           <p class="title mb-1">{{ user.name }}</p>
-          <p class="body-1 mb-1">初回ログイン：ほげほげ</p>
+          <p class="body-1 mb-1">初回ログイン：{{ createdAT }}</p>
           <a :href="twitterID">
             <v-icon color="#1ea1ed">mdi-twitter</v-icon>
           </a>
@@ -49,9 +49,7 @@
       </v-tabs-items>
     </v-card>
     <div v-if="$store.state.post">
-      <v-snackbar v-model="$store.state.post">
-        投稿が完了しました
-      </v-snackbar>
+      <v-snackbar v-model="$store.state.post">投稿が完了しました</v-snackbar>
     </div>
     <div class="post-btn primary">
       <nuxt-link to="/post" class="d-block">
@@ -71,7 +69,8 @@ export default {
       novels: [],
       user: {},
       photoURL: [],
-      twitterID: []
+      twitterID: [],
+      createdAT: []
     }
   },
   mounted() {
@@ -84,6 +83,28 @@ export default {
         this.user = doc.data()
         this.photoURL = doc.data().photoURL.replace('normal', '400x400')
         this.twitterID = 'https://twitter.com/' + doc.data().twitterId
+        this.createdAT =
+          String(
+            doc
+              .data()
+              .createdAt.toDate()
+              .getFullYear()
+          ) +
+          '年' +
+          String(
+            doc
+              .data()
+              .createdAt.toDate()
+              .getMonth() + 1
+          ) +
+          '月' +
+          String(
+            doc
+              .data()
+              .createdAt.toDate()
+              .getDate()
+          ) +
+          '日'
       })
     const arrays = []
     db.collection('novel')
