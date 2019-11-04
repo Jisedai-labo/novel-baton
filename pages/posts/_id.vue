@@ -71,7 +71,7 @@
   </v-card>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data: () => ({
@@ -139,6 +139,7 @@ export default {
       })
   },
   methods: {
+    ...mapActions(['setPost']),
     like() {
       const db = firebase.firestore()
       db.collection('novel')
@@ -190,6 +191,7 @@ export default {
         .update({
           posts: firebase.firestore.FieldValue.arrayUnion(this.$route.params.id)
         })
+      this.setPost(true)
       this.$router.push({ path: '/' })
     }
   }
