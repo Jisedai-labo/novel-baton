@@ -2,6 +2,14 @@
   <v-card class="mx-auto py-6">
     <v-card-title class="headline">{{ title }}</v-card-title>
     <v-card-text>
+      <div class="float-right">
+        <v-btn text class="pa-0" style="min-width: auto;">
+          <v-icon color="pink">mdi-heart-outline</v-icon>
+        </v-btn>
+        <v-btn text class="pa-0" style="min-width: auto;">
+          <v-icon color="pink">mdi-heart</v-icon>
+        </v-btn>
+      </div>
       <p class="subtitle">作成日：2019/11/02</p>
       <p class="title text--primary mt-12">文章（作成途中）</p>
       <div class="text--primary">
@@ -34,12 +42,12 @@
       </div>
     </v-card-text>
     <v-card-actions class="justify-center">
-      <v-btn raised large color="grey lighten-1 accent-4" @click="goback">
-        戻る
-      </v-btn>
-      <v-btn raised large color="primary accent-4" @click="post">
-        追加する
-      </v-btn>
+      <v-btn raised large color="grey lighten-1 accent-4" @click="goback"
+        >戻る</v-btn
+      >
+      <v-btn raised large color="primary accent-4" @click="post"
+        >追加する</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
@@ -98,7 +106,7 @@ export default {
                 'normal',
                 '400x400'
               )
-              raw.userURL = this.postUsers[postUserIndex].id
+              raw.userURL = '/users/' + this.postUsers[postUserIndex].id
               this.nextOrder = raw.order + 1
             })
             this.contents = arrays
