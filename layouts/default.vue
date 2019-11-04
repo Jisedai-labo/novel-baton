@@ -5,7 +5,6 @@
       <v-toolbar-title>Novel Baton</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn text>about</v-btn>
         <v-btn text>mypage</v-btn>
         <v-btn v-if="isAuthenticated" text @click="logout">logout</v-btn>
         <v-btn v-else text @click="login">login</v-btn>
@@ -50,14 +49,14 @@ export default {
               docRef.update({
                 name: result.user.displayName,
                 photoURL: result.user.photoURL,
-                update_timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
               })
             } else {
               const data = {
                 name: result.user.displayName,
                 photoURL: result.user.photoURL,
-                insert_timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-                update_timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
               }
               db.collection('user')
                 .doc(result.user.uid)

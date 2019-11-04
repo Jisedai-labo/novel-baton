@@ -11,8 +11,7 @@
           label="20文字以内で入力してね"
           required
           filled
-        >
-        </v-text-field>
+        />
       </div>
       <p class="display-1 text--primary mt-6">文章</p>
       <div class="text--primary">
@@ -22,27 +21,25 @@
           label="140文字以内で入力してね"
           rows="10"
           filled
-        >
-        </v-textarea>
+        />
       </div>
     </v-card-text>
     <v-card-actions class="justify-center">
       <v-btn raised large color="grey lighten-1 accent-4">戻る</v-btn>
-      <v-btn raised large color="primary accent-4" @click="post">
-        作成する
-      </v-btn>
+      <v-btn raised large color="primary accent-4" @click="post"
+        >作成する</v-btn
+      >
     </v-card-actions>
     <div v-if="show">
       <v-snackbar v-model="show">
         {{ text }}
-        <v-btn color="pink" text to="/">
-          ホームへ戻る
-        </v-btn>
+        <v-btn color="pink" text to="/">ホームへ戻る</v-btn>
       </v-snackbar>
     </div>
   </v-card>
 </template>
 <script>
+import {} from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data: () => ({
@@ -64,10 +61,26 @@ export default {
   methods: {
     post() {
       const db = firebase.firestore()
-      db.collection('novel').add({
-        title: this.title,
-        content: this.content
-      })
+      const title = this.title
+      const content = this.content
+      const user = this.$store.state.user
+      db.collection('novel')
+        .add({
+          title,
+          headline: content,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          userUid: user.uid
+        })
+        .then(function(docRef) {
+          docRef.collection('content').add({
+            body: content,
+            order: 1,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            userUid: user.uid
+          })
+        })
       this.show = true
     }
   }
