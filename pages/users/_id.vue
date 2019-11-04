@@ -150,4 +150,9 @@ export default {
   cursor: pointer;
   float: left;
 }
+.v-application a {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 </style>
