@@ -13,12 +13,30 @@
         <v-btn v-if="isAuthenticated" text :to="userURL">
           <v-icon>mdi-human-greeting</v-icon>
         </v-btn>
-        <v-btn v-if="isAuthenticated" text @click="logout">
+        <v-btn v-if="isAuthenticated" text @click.stop="dialog = true">
           <v-icon>mdi-logout-variant</v-icon>
         </v-btn>
         <v-btn v-else text @click="login">
           <v-icon>mdi-login-variant</v-icon>
         </v-btn>
+        <v-dialog v-model="dialog" max-width="400">
+          <v-card>
+            <v-card-title class="headline"
+              >本当にログアウトしますか？</v-card-title
+            >
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn color="green darken-1" text @click="dialog = false">
+                キャンセル
+              </v-btn>
+
+              <v-btn color="green darken-1" text @click="logout">
+                ログアウト
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -38,7 +56,8 @@ import firebase from '~/plugins/firebase'
 export default {
   data() {
     return {
-      userURL: ''
+      userURL: '',
+      dialog: false
     }
   },
   computed: {
@@ -94,6 +113,7 @@ export default {
         .catch((error) => {
           alert(error)
         })
+      this.dialog = false
     }
   }
 }
