@@ -3,28 +3,20 @@
     <v-card-title class="headline">{{ title }}</v-card-title>
     <v-card-text>
       <div class="float-right">
-        <div v-if="isAuthenticated">
-          <v-btn
-            v-if="isLiked"
-            text
-            class="pa-0"
-            style="min-width: auto;"
-            @click="dislike"
-          >
-            <v-icon color="pink">mdi-heart</v-icon>
-          </v-btn>
-          <v-btn
-            v-else
-            text
-            class="pa-0"
-            style="min-width: auto;"
-            @click="like"
-          >
-            <v-icon color="pink">mdi-heart-outline</v-icon>
-          </v-btn>
-        </div>
+        <v-btn
+          v-if="isLiked"
+          text
+          class="pa-0"
+          style="min-width: auto;"
+          @click="dislike"
+        >
+          <v-icon color="pink">mdi-heart</v-icon>
+        </v-btn>
+        <v-btn v-else text class="pa-0" style="min-width: auto;" @click="like">
+          <v-icon color="pink">mdi-heart-outline</v-icon>
+        </v-btn>
       </div>
-      <p class="subtitle">作成日：2019/11/02</p>
+      <p class="subtitle">更新日：{{ updatedAt }}</p>
       <p v-if="contents.length < 10" class="title text--primary mt-12">文章</p>
       <p v-if="contents.length < 10">
         現在{{ contents.length }}投稿です。あと{{
@@ -106,7 +98,8 @@ export default {
     newContent: '',
     postUsers: [],
     photoURL: [],
-    isLiked: false
+    isLiked: true,
+    createdAt: []
   }),
   computed: {
     ...mapState(['user']),
@@ -118,6 +111,28 @@ export default {
     docRef.get().then((doc) => {
       const data = doc.data()
       this.title = data.title
+      this.createdAt =
+        String(
+          doc
+            .data()
+            .createdAt.toDate()
+            .getFullYear()
+        ) +
+        '年' +
+        String(
+          doc
+            .data()
+            .createdAt.toDate()
+            .getMonth() + 1
+        ) +
+        '月' +
+        String(
+          doc
+            .data()
+            .createdAt.toDate()
+            .getDate()
+        ) +
+        '日'
       if ('favoritedBy' in data) {
         if (data.favoritedBy.includes(this.$store.state.user.uid)) {
           this.isLiked = true
@@ -127,6 +142,28 @@ export default {
       } else {
         this.isLiked = false
       }
+      this.updatedAt =
+        String(
+          doc
+            .data()
+            .updatedAt.toDate()
+            .getFullYear()
+        ) +
+        '年' +
+        String(
+          doc
+            .data()
+            .updatedAt.toDate()
+            .getMonth() + 1
+        ) +
+        '月' +
+        String(
+          doc
+            .data()
+            .updatedAt.toDate()
+            .getDate()
+        ) +
+        '日'
     })
     docRef
       .collection('content')
