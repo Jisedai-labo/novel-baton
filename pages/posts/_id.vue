@@ -20,7 +20,7 @@
       </div>
     </v-card-text>
     <v-card-actions class="justify-center">
-      <v-btn raised large color="grey lighten-1 accent-4">
+      <v-btn raised large color="grey lighten-1 accent-4" @click="goback">
         戻る
       </v-btn>
       <v-btn raised large color="primary accent-4" @click="post">
@@ -87,13 +87,17 @@ export default {
       })
   },
   methods: {
+    goback() {
+      this.$router.go(-1)
+    },
     post() {
       const db = firebase.firestore()
       const user = this.$store.state.user
       db.collection('novel')
         .doc(this.$route.params.id)
         .update({
-          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
         })
       db.collection('novel')
         .doc(this.$route.params.id)
@@ -102,7 +106,7 @@ export default {
           body: this.newContent,
           order: this.nextOrder,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           userUid: user.uid
         })
       db.collection('user')
