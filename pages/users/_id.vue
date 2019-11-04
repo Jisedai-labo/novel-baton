@@ -7,9 +7,10 @@
         </v-col>
         <v-col cols="9" sm="10">
           <p class="title mb-1">{{ user.name }}</p>
-          <p class="body-1 mb-1">投稿数：{{ user.name }}</p>
-          <p class="body-1 mb-1">いいね数：{{ user.name }}</p>
-          <p class="body-1 mb-1">ブックマーク数：{{ user.name }}</p>
+          <p class="body-1 mb-1">初回ログイン：ほげほげ</p>
+          <a :href="twitterID">
+            <v-icon color="#1ea1ed">mdi-twitter</v-icon>
+          </a>
         </v-col>
       </v-row>
     </v-card>
@@ -55,7 +56,8 @@ export default {
       items: ['投稿履歴', 'いいね'],
       novels: [],
       user: {},
-      photoURL: []
+      photoURL: [],
+      twitterID: []
     }
   },
   mounted() {
@@ -66,6 +68,7 @@ export default {
       .then((doc) => {
         this.user = doc.data()
         this.photoURL = doc.data().photoURL.replace('normal', '400x400')
+        this.twitterID = 'https://twitter.com/' + doc.data().twitterId
       })
     const arrays = []
     db.collection('novel')
