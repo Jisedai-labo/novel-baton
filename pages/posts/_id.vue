@@ -36,7 +36,7 @@
           </v-row>
         </div>
       </div>
-      <div v-if="contents.length < 8">
+      <div v-if="contents.length < 10 && !isAuthenticated">
         <p class="title text--primary mt-12">文章を追加する</p>
         <div class="text--primary">
           <v-textarea
@@ -51,7 +51,7 @@
     </v-card-text>
     <v-card-actions class="justify-center">
       <v-btn
-        v-if="contents.length < 8"
+        v-if="contents.length < 10 && !isAuthenticated"
         raised
         large
         color="grey lighten-1 accent-4"
@@ -59,7 +59,7 @@
         >戻る</v-btn
       >
       <v-btn
-        v-if="contents.length < 10"
+        v-if="contents.length < 10 && !isAuthenticated"
         raised
         large
         color="primary accent-4"
