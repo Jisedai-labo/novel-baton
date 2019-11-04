@@ -7,7 +7,7 @@
         </v-col>
         <v-col cols="9" sm="10">
           <p class="title mb-1">{{ user.name }}</p>
-          <p class="body-1 mb-1">初回ログイン：{{ createdAT }}</p>
+          <p class="body-1 mb-1">初回ログイン：{{ createdAt }}</p>
           <a :href="twitterID">
             <v-icon color="#1ea1ed">mdi-twitter</v-icon>
           </a>
@@ -70,7 +70,7 @@ export default {
       user: {},
       photoURL: [],
       twitterID: [],
-      createdAT: []
+      createdAt: ''
     }
   },
   mounted() {
@@ -83,7 +83,7 @@ export default {
         this.user = doc.data()
         this.photoURL = doc.data().photoURL.replace('normal', '400x400')
         this.twitterID = 'https://twitter.com/' + doc.data().twitterId
-        this.createdAT =
+        this.createdAt =
           String(
             doc
               .data()
