@@ -49,7 +49,6 @@
   </v-layout>
 </template>
 <script>
-import { mapState } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data() {
@@ -58,48 +57,13 @@ export default {
       datas: [''],
       items: ['投稿履歴', 'ブックマーク一覧', 'いいね一覧'],
       all: [],
-      histories: []
+      histories: [],
+      user: {}
     }
   },
-  computed: {
-    ...mapState(['user'])
-  },
-  mounted() {
+  beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
-      const db = firebase.firestore()
-      const marks = []
-      const likes = []
-      const histories = []
-      db.collection('user')
-        .doc(user.uid)
-        .collection('bookmark')
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            marks.push(doc.data())
-          })
-        })
-      db.collection('user')
-        .doc(user.uid)
-        .collection('like')
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            likes.push(doc.data())
-          })
-        })
-
-      db.collection('user')
-        .doc(user.uid)
-        .collection('post_history')
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            histories.push(doc.data())
-          })
-        })
-      this.histories = histories
-      this.all = [likes, marks]
+      this.user = user
     })
   }
 }

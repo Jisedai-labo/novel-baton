@@ -1,14 +1,12 @@
 <template>
   <v-card class="mx-auto py-6">
-    <v-card-title class="display-2">タイトル: {{ novel }}</v-card-title>
+    <v-card-title class="display-2">タイトル: {{ title }}</v-card-title>
     <v-card-text>
       <p>作成日：2019/11/02</p>
       <p class="display-1 text--primary mt-12">
         文章（作成途中）
       </p>
-      <div class="text--primary">
-        {{ novel }}
-      </div>
+      <div class="text--primary">{{ content }}:{{ nextOrder }}</div>
       <p class="display-1 text--primary mt-12">
         文章を追加する
       </p>
@@ -42,18 +40,35 @@ export default {
       (v) => !!v || '文章を入力してください',
       (v) => (v && v.length <= 140) || '文章は140文字以内で入力してください'
     ],
-    novel: {}
+    title: '',
+    content: [],
+    nextOrder: 0
   }),
   mounted() {
     const db = firebase.firestore()
-    const arrays = []
-    db.collection('novel')
-      .doc(this.$route.params.id)
+    const docRef = db.collection('novel').doc(this.$route.params.id)
+    docRef.get().then((doc) => {
+      const data = doc.data()
+      this.title = data.title
+    })
+    docRef
+      .collection('content')
+      .orderBy('order')
       .get()
-      .then(function(doc) {
-        arrays.push(doc.data())
+      .then((querySnapshot) => {
+        const arrays = []
+        querySnapshot.forEach((doc, index) => {
+          const raw = doc.data()
+          arrays.push(raw)
+          this.nextOrder = raw.order + 1
+        })
+        this.content = arrays
       })
-    this.novel = arrays[0]
+  },
+  methods: {
+    post() {
+      // const db = firebase.firestore()
+    }
   }
 }
 </script>
