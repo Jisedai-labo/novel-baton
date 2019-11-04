@@ -7,6 +7,9 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
+        <v-btn text to="/about">
+          <v-icon>mdi-help-box</v-icon>
+        </v-btn>
         <v-btn v-if="isAuthenticated" text :to="userURL">
           <v-icon>mdi-human-greeting</v-icon>
         </v-btn>
@@ -98,5 +101,8 @@ export default {
   display: block;
   color: #000;
   text-decoration: none;
+}
+.v-toolbar__items .v-btn {
+  min-width: auto !important;
 }
 </style>
