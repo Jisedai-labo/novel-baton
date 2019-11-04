@@ -63,14 +63,16 @@ export default {
               docRef.update({
                 name: result.user.displayName,
                 photoURL: result.user.photoURL,
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                twitterId: result.additionalUserInfo.profile.screen_name
               })
             } else {
               const data = {
                 name: result.user.displayName,
                 photoURL: result.user.photoURL,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+                twitterId: result.additionalUserinfo.profile.screen_name
               }
               db.collection('user')
                 .doc(result.user.uid)
