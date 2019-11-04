@@ -39,6 +39,11 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
+    <div v-if="$store.state.post">
+      <v-snackbar v-model="$store.state.post">
+        投稿が完了しました
+      </v-snackbar>
+    </div>
     <div class="post-btn primary">
       <nuxt-link to="/post" class="d-block">
         <v-icon color="white">mdi-message-plus-outline</v-icon>
@@ -47,6 +52,7 @@
   </v-layout>
 </template>
 <script>
+import { mapActions } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data() {
@@ -59,6 +65,7 @@ export default {
     }
   },
   mounted() {
+    setTimeout(this.closeModal, 3000)
     const db = firebase.firestore()
     db.collection('user')
       .doc(this.$route.params.id)
@@ -94,6 +101,12 @@ export default {
     this.post_novels = arrays
     this.favorite_novels = favoriteArray
     this.novels = [this.post_novels, this.favorite_novels]
+  },
+  methods: {
+    ...mapActions(['setPost']),
+    closeModal() {
+      this.setPost(false)
+    }
   }
 }
 </script>
