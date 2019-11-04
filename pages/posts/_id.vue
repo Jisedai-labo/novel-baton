@@ -36,24 +36,37 @@
           </v-row>
         </div>
       </div>
-      <p class="title text--primary mt-12">文章を追加する</p>
-      <div class="text--primary">
-        <v-textarea
-          v-model="newContent"
-          :rules="postRules"
-          label="140文字以内で入力してね"
-          rows="10"
-          filled
-        ></v-textarea>
+      <div v-if="contents.length < 8">
+        <p class="title text--primary mt-12">文章を追加する</p>
+        <div class="text--primary">
+          <v-textarea
+            v-model="newContent"
+            :rules="postRules"
+            label="140文字以内で入力してね"
+            rows="10"
+            filled
+          ></v-textarea>
+        </div>
       </div>
     </v-card-text>
     <v-card-actions class="justify-center">
-      <v-btn raised large color="grey lighten-1 accent-4" @click="goback"
+      <v-btn
+        v-if="contents.length < 8"
+        raised
+        large
+        color="grey lighten-1 accent-4"
+        @click="goback"
         >戻る</v-btn
       >
-      <v-btn raised large color="primary accent-4" @click="post"
+      <v-btn
+        v-if="contents.length < 10"
+        raised
+        large
+        color="primary accent-4"
+        @click="post"
         >追加する</v-btn
       >
+      <p v-else>おわり</p>
     </v-card-actions>
   </v-card>
 </template>

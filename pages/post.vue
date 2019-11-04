@@ -1,10 +1,10 @@
 <template>
   <v-card class="mx-auto py-6">
     <div v-if="isAuthenticated">
-      <v-card-title class="display-2">新規投稿</v-card-title>
+      <v-card-title class="headline">新規投稿</v-card-title>
       <v-card-text>
         <p>作成日：2019/11/02</p>
-        <p class="display-1 text--primary">タイトル</p>
+        <p class="title text--primary">タイトル</p>
         <div class="text--primary">
           <v-text-field
             v-model="title"
@@ -14,7 +14,7 @@
             filled
           />
         </div>
-        <p class="display-1 text--primary mt-6">文章</p>
+        <p class="title text--primary mt-6">文章</p>
         <div class="text--primary">
           <v-textarea
             v-model="content"
