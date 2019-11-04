@@ -39,6 +39,11 @@
         </v-tab-item>
       </v-tabs-items>
     </v-card>
+    <div class="post-btn primary">
+      <nuxt-link to="/post" class="d-block">
+        <v-icon color="white">mdi-message-plus-outline</v-icon>
+      </nuxt-link>
+    </div>
   </v-layout>
 </template>
 <script>
