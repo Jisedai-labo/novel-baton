@@ -111,37 +111,6 @@ export default {
     docRef.get().then((doc) => {
       const data = doc.data()
       this.title = data.title
-      this.createdAt =
-        String(
-          doc
-            .data()
-            .createdAt.toDate()
-            .getFullYear()
-        ) +
-        '年' +
-        String(
-          doc
-            .data()
-            .createdAt.toDate()
-            .getMonth() + 1
-        ) +
-        '月' +
-        String(
-          doc
-            .data()
-            .createdAt.toDate()
-            .getDate()
-        ) +
-        '日'
-      if ('favoritedBy' in data) {
-        if (data.favoritedBy.includes(this.$store.state.user.uid)) {
-          this.isLiked = true
-        } else {
-          this.isLiked = false
-        }
-      } else {
-        this.isLiked = false
-      }
       this.updatedAt =
         String(
           doc
@@ -164,6 +133,15 @@ export default {
             .getDate()
         ) +
         '日'
+      if ('favoritedBy' in data) {
+        if (data.favoritedBy.includes(this.$store.state.user.uid)) {
+          this.isLiked = true
+        } else {
+          this.isLiked = false
+        }
+      } else {
+        this.isLiked = false
+      }
     })
     docRef
       .collection('content')
