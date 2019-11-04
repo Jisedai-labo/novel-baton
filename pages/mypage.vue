@@ -98,7 +98,6 @@ export default {
             histories.push(doc.data())
           })
         })
-      console.log(histories)
       this.histories = histories
       this.all = [likes, marks]
     })
