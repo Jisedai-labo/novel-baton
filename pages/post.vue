@@ -70,7 +70,8 @@ export default {
           headline: content,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          userUid: user.uid
+          userUid: user.uid,
+          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
         })
         .then(function(docRef) {
           docRef.collection('content').add({
@@ -80,6 +81,11 @@ export default {
             updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
             userUid: user.uid
           })
+          db.collection('user')
+            .doc(user.uid)
+            .update({
+              posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
+            })
         })
       this.show = true
     }
