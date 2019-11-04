@@ -29,10 +29,18 @@
                 md="4"
                 class="d-flex"
               >
-                <v-card width="100%">
-                  <v-card-title>{{ n.title }}</v-card-title>
-                  <v-card-text>{{ n.headline }}</v-card-text>
-                </v-card>
+                <v-hover v-slot:default="{ hover }">
+                  <v-card width="100%" :elevation="hover ? 6 : 2">
+                    <nuxt-link
+                      :to="n.url"
+                      class="d-block"
+                      style="height: 100%;"
+                    >
+                      <v-card-title>{{ n.title }}</v-card-title>
+                      <v-card-text>{{ n.headline }}</v-card-text>
+                    </nuxt-link>
+                  </v-card>
+                </v-hover>
               </v-col>
             </v-row>
           </v-container>
@@ -82,7 +90,7 @@ export default {
         querySnapshot.forEach(function(doc) {
           // this.novels = doc.data()
           const raw = doc.data()
-          raw.url = 'posts/' + doc.id
+          raw.url = '/posts/' + doc.id
           arrays.push(raw)
         })
       })
@@ -94,7 +102,7 @@ export default {
         querySnapshot.forEach(function(doc) {
           // this.novels = doc.data()
           const raw = doc.data()
-          raw.url = 'posts/' + doc.id
+          raw.url = '/posts/' + doc.id
           favoriteArray.push(raw)
         })
       })
