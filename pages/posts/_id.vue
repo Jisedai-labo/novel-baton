@@ -67,11 +67,14 @@
         >追加する</v-btn
       >
       <p v-if="contents.length >= 10">おわり</p>
+      <p v-if="contents.length < 10 && !isAuthenticated">
+        小説の続きを投稿したい場合はログインをしてください。
+      </p>
     </v-card-actions>
   </v-card>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data: () => ({
@@ -90,7 +93,8 @@ export default {
     isLiked: true
   }),
   computed: {
-    ...mapState(['user'])
+    ...mapState(['user']),
+    ...mapGetters(['isAuthenticated'])
   },
   mounted() {
     const db = firebase.firestore()
