@@ -1,13 +1,28 @@
 <template>
   <v-card class="mx-auto py-6">
-    <v-card-title class="display-2">{{ title }}</v-card-title>
+    <v-card-title class="headline">{{ title }}</v-card-title>
     <v-card-text>
-      <p>作成日：2019/11/02</p>
-      <p class="display-1 text--primary mt-12">文章（作成途中）</p>
-      <div class="text--primary">{{ content }}:{{ nextOrder }}</div>
-      <p class="display-1 text--primary mt-12">
-        文章を追加する
-      </p>
+      <p class="subtitle">作成日：2019/11/02</p>
+      <p class="title text--primary mt-12">文章（作成途中）</p>
+      <div class="text--primary">
+        <div v-for="(content, index) in contents" :key="index">
+          <v-row>
+            <v-col cols="3" sm="2" lg="1">
+              <nuxt-link class="d-block" :to="content.userURL">
+                <v-img
+                  :src="content.photoURL"
+                  aspect-ratio="1"
+                  max-width="100"
+                ></v-img>
+              </nuxt-link>
+            </v-col>
+            <v-col cols="9" sm="10" lg="11">
+              <p>{{ content.body }}</p>
+            </v-col>
+          </v-row>
+        </div>
+      </div>
+      <p class="title text--primary mt-12">文章を追加する</p>
       <div class="text--primary">
         <v-textarea
           v-model="newContent"
@@ -15,8 +30,7 @@
           label="140文字以内で入力してね"
           rows="10"
           filled
-        >
-        </v-textarea>
+        ></v-textarea>
       </div>
     </v-card-text>
     <v-card-actions class="justify-center">
@@ -41,10 +55,11 @@ export default {
       (v) => (v && v.length <= 140) || '文章は140文字以内で入力してください'
     ],
     title: '',
-    content: [],
+    contents: [],
     nextOrder: 0,
     newContent: '',
-    postUsers: []
+    postUsers: [],
+    photoURL: []
   }),
   computed: {
     ...mapState(['user'])
@@ -79,10 +94,14 @@ export default {
               const postUserIndex = this.postUsers.findIndex(
                 (item) => item.id === raw.userUid
               )
-              raw.photoURL = this.postUsers[postUserIndex].photoURL
+              raw.photoURL = this.postUsers[postUserIndex].photoURL.replace(
+                'normal',
+                '400x400'
+              )
+              raw.userURL = this.postUsers[postUserIndex].id
               this.nextOrder = raw.order + 1
             })
-            this.content = arrays
+            this.contents = arrays
           })
       })
   },
