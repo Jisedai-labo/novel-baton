@@ -18,6 +18,25 @@
         <v-tab v-for="(item, index) in items" :key="index">{{ item }}</v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
+        <v-tab-item>
+          <v-container>
+            <v-row>
+              <v-col
+                v-for="(history, index) in histories"
+                :key="index"
+                cols="12"
+                sm="6"
+                md="4"
+                class="d-flex"
+              >
+                <v-card width="100%">
+                  <v-card-title>{{ history.title }}</v-card-title>
+                  <v-card-text>{{ history.headline }}</v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-tab-item>
         <v-tab-item v-for="(novel, novel_index) in all" :key="novel_index">
           <v-container>
             <v-row>
@@ -47,8 +66,10 @@ export default {
   data() {
     return {
       tab: null,
-      items: ['投稿履歴', 'いいね'],
+      datas: [''],
+      items: ['投稿履歴', 'いいね', 'ブックマーク'],
       all: [],
+      histories: [],
       user: {},
       photoURL: []
     }
