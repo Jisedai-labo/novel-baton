@@ -7,7 +7,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn text to="/mypage">
+        <v-btn v-if="isAuthenticated" text :to="userURL">
           <v-icon>mdi-human-greeting</v-icon>
         </v-btn>
         <v-btn v-if="isAuthenticated" text @click="logout">
@@ -33,6 +33,11 @@
 import { mapActions, mapState, mapGetters } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
+  data() {
+    return {
+      userURL: ''
+    }
+  },
   computed: {
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
@@ -40,6 +45,7 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
+      this.userURL = '/users/' + user.uid
     })
   },
   methods: {
