@@ -105,4 +105,20 @@ export default {
 .v-toolbar__items .v-btn {
   min-width: auto !important;
 }
+.post-btn {
+  display: block;
+  position: fixed;
+  bottom: 8%;
+  right: 5%;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  line-height: 50px;
+  border-radius: 25px;
+  transition: 0.4s;
+}
+.post-btn:hover {
+  opacity: 0.7;
+  transition: 0.4s;
+}
 </style>
