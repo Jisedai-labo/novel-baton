@@ -33,12 +33,6 @@
           >作成する</v-btn
         >
       </v-card-actions>
-      <div v-if="show">
-        <v-snackbar v-model="show">
-          {{ text }}
-          <v-btn color="pink" text to="/">ホームへ戻る</v-btn>
-        </v-snackbar>
-      </div>
     </div>
     <div v-else>
       投稿するにはログインが必要です。
@@ -46,7 +40,7 @@
   </v-card>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data: () => ({
@@ -61,15 +55,14 @@ export default {
       (v) => (v && v.length <= 140) || '文章は140文字以内で入力してください'
     ],
     title: '',
-    content: '',
-    show: false,
-    text: '投稿が完了しました'
+    content: ''
   }),
   computed: {
     ...mapState(['user']),
     ...mapGetters(['isAuthenticated'])
   },
   methods: {
+    ...mapActions(['setPost']),
     goback() {
       this.$router.go(-1)
     },
@@ -101,7 +94,8 @@ export default {
               posts: firebase.firestore.FieldValue.arrayUnion(docRef.id)
             })
         })
-      this.show = true
+      this.setPost(true)
+      this.$router.go(-1)
     }
   }
 }
