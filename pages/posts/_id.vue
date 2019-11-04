@@ -17,7 +17,15 @@
         </v-btn>
       </div>
       <p class="subtitle">作成日：2019/11/02</p>
-      <p class="title text--primary mt-12">文章（作成途中）</p>
+      <p v-if="contents.length < 10" class="title text--primary mt-12">文章</p>
+      <p v-if="contents.length < 10">
+        現在{{ contents.length }}投稿です。あと{{
+          10 - contents.length
+        }}投稿で完結させてください。
+      </p>
+      <p v-else class="title text--primary mt-12">
+        文章（完結）
+      </p>
       <div class="text--primary">
         <div v-for="(content, index) in contents" :key="index">
           <v-row>

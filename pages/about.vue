@@ -5,7 +5,8 @@
       <v-card-text>
         <p class="title mt-8">Essay Batonとは？</p>
         <p>
-          Essay Batonは、1人が1文ずつ書いて一つの小説を完成させるゲームです。
+          Essay
+          Batonは、1人が1文ずつ書いて10投稿で1つの小説を完成させるゲームです。1回の投稿は140字以内です。
         </p>
         <p class="title mt-12">使い方</p>
         <ol>
