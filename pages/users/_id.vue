@@ -47,7 +47,7 @@ export default {
   data() {
     return {
       tab: null,
-      items: ['投稿履歴', 'いいね', 'ブックマーク'],
+      items: ['投稿履歴', 'いいね'],
       all: [],
       user: {},
       photoURL: []
