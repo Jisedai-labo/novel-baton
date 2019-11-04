@@ -1,7 +1,6 @@
 <template>
   <v-layout column justify-center>
-    <b>{{ user }}</b>
-    <img :src="user.photoURL" width="134" class="icon" />
+    <img :src="photoURL" width="134" class="icon" />
     <b class="name">{{ user.displayName }}</b>
     <v-tabs v-model="tab" background-color="transparent" grow>
       <v-tab v-for="(item, index) in items" :key="index">{{ item }}</v-tab>
@@ -49,57 +48,23 @@
   </v-layout>
 </template>
 <script>
-import { mapState } from 'vuex'
 import firebase from '~/plugins/firebase'
 export default {
   data() {
     return {
       tab: null,
       datas: [''],
-      items: ['投稿履歴', 'ブックマーク一覧', 'いいね一覧'],
+      items: ['投稿履歴', 'ブックマーク', 'いいね'],
       all: [],
-      histories: []
+      histories: [],
+      user: {},
+      photoURL: []
     }
   },
-  computed: {
-    ...mapState(['user'])
-  },
-  mounted() {
+  beforeCreate() {
     firebase.auth().onAuthStateChanged((user) => {
-      const db = firebase.firestore()
-      const marks = []
-      const likes = []
-      const histories = []
-      db.collection('user')
-        .doc(user.uid)
-        .collection('bookmark')
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            marks.push(doc.data())
-          })
-        })
-      db.collection('user')
-        .doc(user.uid)
-        .collection('like')
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            likes.push(doc.data())
-          })
-        })
-
-      db.collection('user')
-        .doc(user.uid)
-        .collection('post_history')
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            histories.push(doc.data())
-          })
-        })
-      this.histories = histories
-      this.all = [likes, marks]
+      this.user = user
+      this.photoURL = user.photoURL.replace('normal', '400x400')
     })
   }
 }
