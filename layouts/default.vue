@@ -94,7 +94,7 @@ export default {
                 photoURL: result.user.photoURL,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-                twitterId: result.additionalUserinfo.profile.screen_name
+                twitterId: result.additionalUserInfo.profile.screen_name
               }
               db.collection('user')
                 .doc(result.user.uid)
