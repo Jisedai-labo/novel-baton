@@ -42,18 +42,11 @@
 import firebase from '~/plugins/firebase'
 export default {
   data() {
-    // const init = [911111, 88, 64, 86, 111111, 5555]
-    // const good = [
-    //   'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa',
-    //   'bb',
-    //   'cc',
-    //   'ddddddd'
-    // ]
     return {
       newly_novels: [],
       likely_novels: [],
       tab: null,
-      items: ['新着順', 'いいね順'],
+      items: ['更新順', 'いいね数順'],
       texts: [],
       novelId: this.$route.params.id
     }
@@ -74,7 +67,20 @@ export default {
         })
       })
     this.newly_novels = arrays
-    this.likely_novels = arrays
+    const favoriteArrays = []
+    db.collection('novel')
+      .orderBy('favoriteCount')
+      .limit(100)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // this.novels = doc.data()
+          const raw = doc.data()
+          raw.url = 'posts/' + doc.id
+          favoriteArrays.push(raw)
+        })
+      })
+    this.likely_novels = favoriteArrays
     this.texts = [this.newly_novels, this.likely_novels]
   }
 }
