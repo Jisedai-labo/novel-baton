@@ -7,9 +7,10 @@
         </v-col>
         <v-col cols="9" sm="10">
           <p class="title mb-1">{{ user.name }}</p>
-          <p class="body-1 mb-1">投稿数：{{ user.name }}</p>
-          <p class="body-1 mb-1">いいね数：{{ user.name }}</p>
-          <p class="body-1 mb-1">ブックマーク数：{{ user.name }}</p>
+          <p class="body-1 mb-1">初回ログイン：{{ createdAT }}</p>
+          <a :href="twitterID">
+            <v-icon color="#1ea1ed">mdi-twitter</v-icon>
+          </a>
         </v-col>
       </v-row>
     </v-card>
@@ -29,10 +30,18 @@
                 md="4"
                 class="d-flex"
               >
-                <v-card width="100%">
-                  <v-card-title>{{ n.title }}</v-card-title>
-                  <v-card-text>{{ n.headline }}</v-card-text>
-                </v-card>
+                <v-hover v-slot:default="{ hover }">
+                  <v-card width="100%" :elevation="hover ? 6 : 2">
+                    <nuxt-link
+                      :to="n.url"
+                      class="d-block"
+                      style="height: 100%;"
+                    >
+                      <v-card-title>{{ n.title }}</v-card-title>
+                      <v-card-text>{{ n.headline }}</v-card-text>
+                    </nuxt-link>
+                  </v-card>
+                </v-hover>
               </v-col>
             </v-row>
           </v-container>
@@ -40,9 +49,7 @@
       </v-tabs-items>
     </v-card>
     <div v-if="$store.state.post">
-      <v-snackbar v-model="$store.state.post">
-        投稿が完了しました
-      </v-snackbar>
+      <v-snackbar v-model="$store.state.post">投稿が完了しました</v-snackbar>
     </div>
     <div class="post-btn primary">
       <nuxt-link to="/post" class="d-block">
@@ -61,7 +68,9 @@ export default {
       items: ['投稿履歴', 'いいね'],
       novels: [],
       user: {},
-      photoURL: []
+      photoURL: [],
+      twitterID: [],
+      createdAT: []
     }
   },
   mounted() {
@@ -73,6 +82,29 @@ export default {
       .then((doc) => {
         this.user = doc.data()
         this.photoURL = doc.data().photoURL.replace('normal', '400x400')
+        this.twitterID = 'https://twitter.com/' + doc.data().twitterId
+        this.createdAT =
+          String(
+            doc
+              .data()
+              .createdAt.toDate()
+              .getFullYear()
+          ) +
+          '年' +
+          String(
+            doc
+              .data()
+              .createdAt.toDate()
+              .getMonth() + 1
+          ) +
+          '月' +
+          String(
+            doc
+              .data()
+              .createdAt.toDate()
+              .getDate()
+          ) +
+          '日'
       })
     const arrays = []
     db.collection('novel')
@@ -82,7 +114,7 @@ export default {
         querySnapshot.forEach(function(doc) {
           // this.novels = doc.data()
           const raw = doc.data()
-          raw.url = 'posts/' + doc.id
+          raw.url = '/posts/' + doc.id
           arrays.push(raw)
         })
       })
@@ -94,7 +126,7 @@ export default {
         querySnapshot.forEach(function(doc) {
           // this.novels = doc.data()
           const raw = doc.data()
-          raw.url = 'posts/' + doc.id
+          raw.url = '/posts/' + doc.id
           favoriteArray.push(raw)
         })
       })

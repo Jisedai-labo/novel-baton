@@ -143,4 +143,8 @@ export default {
   opacity: 0.7;
   transition: 0.4s;
 }
+a {
+  color: black;
+  text-decoration: none;
+}
 </style>
