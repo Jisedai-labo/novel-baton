@@ -2,12 +2,20 @@
   <v-app>
     <!-- ヘッダー内容 -->
     <v-app-bar app>
-      <v-toolbar-title>Novel Baton</v-toolbar-title>
+      <v-toolbar-title>
+        <nuxt-link to="/" class="logo">Novel Baton</nuxt-link>
+      </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items>
-        <v-btn text>mypage</v-btn>
-        <v-btn v-if="isAuthenticated" text @click="logout">logout</v-btn>
-        <v-btn v-else text @click="login">login</v-btn>
+        <v-btn text to="/mypage">
+          <v-icon>mdi-human-greeting</v-icon>
+        </v-btn>
+        <v-btn v-if="isAuthenticated" text @click="logout">
+          <v-icon>mdi-logout-variant</v-icon>
+        </v-btn>
+        <v-btn v-else text @click="login">
+          <v-icon>mdi-login-variant</v-icon>
+        </v-btn>
       </v-toolbar-items>
     </v-app-bar>
     <v-content>
@@ -79,3 +87,10 @@ export default {
   }
 }
 </script>
+<style>
+.v-toolbar__title .logo {
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+</style>
