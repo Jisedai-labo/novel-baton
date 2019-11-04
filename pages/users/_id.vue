@@ -18,7 +18,7 @@
         <v-tab v-for="(item, index) in items" :key="index">{{ item }}</v-tab>
       </v-tabs>
       <v-tabs-items v-model="tab">
-        <v-tab-item v-for="(novel, novel_index) in all" :key="novel_index">
+        <v-tab-item v-for="(novel, novel_index) in novels" :key="novel_index">
           <v-container>
             <v-row>
               <v-col
@@ -48,7 +48,7 @@ export default {
     return {
       tab: null,
       items: ['投稿履歴', 'いいね'],
-      all: [],
+      novels: [],
       user: {},
       photoURL: []
     }
@@ -62,6 +62,33 @@ export default {
         this.user = doc.data()
         this.photoURL = doc.data().photoURL.replace('normal', '400x400')
       })
+    const arrays = []
+    db.collection('novel')
+      .where('postUsers', 'array-contains', this.$route.params.id)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // this.novels = doc.data()
+          const raw = doc.data()
+          raw.url = 'posts/' + doc.id
+          arrays.push(raw)
+        })
+      })
+    const favoriteArray = []
+    db.collection('novel')
+      .where('favoritedBy', 'array-contains', this.$route.params.id)
+      .get()
+      .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          // this.novels = doc.data()
+          const raw = doc.data()
+          raw.url = 'posts/' + doc.id
+          favoriteArray.push(raw)
+        })
+      })
+    this.post_novels = arrays
+    this.favorite_novels = favoriteArray
+    this.novels = [this.post_novels, this.favorite_novels]
   }
 }
 </script>

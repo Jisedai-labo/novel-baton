@@ -3,11 +3,17 @@
     <v-card-title class="headline">{{ title }}</v-card-title>
     <v-card-text>
       <div class="float-right">
-        <v-btn text class="pa-0" style="min-width: auto;">
-          <v-icon color="pink">mdi-heart-outline</v-icon>
-        </v-btn>
-        <v-btn text class="pa-0" style="min-width: auto;">
+        <v-btn
+          v-if="isLiked"
+          text
+          class="pa-0"
+          style="min-width: auto;"
+          @click="dislike"
+        >
           <v-icon color="pink">mdi-heart</v-icon>
+        </v-btn>
+        <v-btn v-else text class="pa-0" style="min-width: auto;" @click="like">
+          <v-icon color="pink">mdi-heart-outline</v-icon>
         </v-btn>
       </div>
       <p class="subtitle">作成日：2019/11/02</p>
@@ -67,7 +73,8 @@ export default {
     nextOrder: 0,
     newContent: '',
     postUsers: [],
-    photoURL: []
+    photoURL: [],
+    isLiked: true
   }),
   computed: {
     ...mapState(['user'])
@@ -78,6 +85,11 @@ export default {
     docRef.get().then((doc) => {
       const data = doc.data()
       this.title = data.title
+      if ('favoritedBy' in data) {
+        this.isLiked = !data.favoritedBy.indexOf(this.$store.state.user.uid)
+      } else {
+        this.isLiked = false
+      }
     })
     docRef
       .collection('content')
@@ -114,6 +126,30 @@ export default {
       })
   },
   methods: {
+    like() {
+      const db = firebase.firestore()
+      db.collection('novel')
+        .doc(this.$route.params.id)
+        .update({
+          favoritedBy: firebase.firestore.FieldValue.arrayUnion(
+            this.$store.state.user.uid
+          ),
+          favoriteCount: firebase.firestore.FieldValue.increment(1)
+        })
+      this.isLiked = true
+    },
+    dislike() {
+      const db = firebase.firestore()
+      db.collection('novel')
+        .doc(this.$route.params.id)
+        .update({
+          favoritedBy: firebase.firestore.FieldValue.arrayRemove(
+            this.$store.state.user.uid
+          ),
+          favoriteCount: firebase.firestore.FieldValue.increment(-1)
+        })
+      this.isLiked = false
+    },
     goback() {
       this.$router.go(-1)
     },
