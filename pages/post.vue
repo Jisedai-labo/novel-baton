@@ -25,7 +25,9 @@
       </div>
     </v-card-text>
     <v-card-actions class="justify-center">
-      <v-btn raised large color="grey lighten-1 accent-4">戻る</v-btn>
+      <v-btn raised large color="grey lighten-1 accent-4" @click="goback"
+        >戻る</v-btn
+      >
       <v-btn raised large color="primary accent-4" @click="post"
         >作成する</v-btn
       >
@@ -59,6 +61,9 @@ export default {
     text: '投稿が完了しました'
   }),
   methods: {
+    goback() {
+      this.$router.go(-1)
+    },
     post() {
       const db = firebase.firestore()
       const title = this.title
@@ -69,7 +74,7 @@ export default {
           title,
           headline: content,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-          updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           userUid: user.uid,
           postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
         })
@@ -78,7 +83,7 @@ export default {
             body: content,
             order: 1,
             createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-            updatdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
             userUid: user.uid
           })
           db.collection('user')

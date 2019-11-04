@@ -62,6 +62,8 @@ export default {
     const db = firebase.firestore()
     const arrays = []
     db.collection('novel')
+      .orderBy('updatedAt')
+      .limit(100)
       .get()
       .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
