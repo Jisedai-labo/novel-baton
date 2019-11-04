@@ -6,10 +6,10 @@
           <img :src="photoURL" class="icon" width="100%" />
         </v-col>
         <v-col cols="9" sm="10">
-          <p class="title mb-1">{{ user.displayName }}</p>
-          <p class="body-1 mb-1">投稿数：{{ user.displayName }}</p>
-          <p class="body-1 mb-1">いいね数：{{ user.displayName }}</p>
-          <p class="body-1 mb-1">ブックマーク数：{{ user.displayName }}</p>
+          <p class="title mb-1">{{ user.name }}</p>
+          <p class="body-1 mb-1">投稿数：{{ user.name }}</p>
+          <p class="body-1 mb-1">いいね数：{{ user.name }}</p>
+          <p class="body-1 mb-1">ブックマーク数：{{ user.name }}</p>
         </v-col>
       </v-row>
     </v-card>
@@ -74,11 +74,15 @@ export default {
       photoURL: []
     }
   },
-  beforeCreate() {
-    firebase.auth().onAuthStateChanged((user) => {
-      this.user = user
-      this.photoURL = user.photoURL.replace('normal', '400x400')
-    })
+  mounted() {
+    const db = firebase.firestore()
+    db.collection('user')
+      .doc(this.$route.params.id)
+      .get()
+      .then((doc) => {
+        this.user = doc.data()
+        this.photoURL = doc.data().photoURL.replace('normal', '400x400')
+      })
   }
 }
 </script>
