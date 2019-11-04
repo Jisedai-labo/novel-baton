@@ -38,6 +38,13 @@
                       style="height: 100%;"
                     >
                       <v-card-title>{{ n.title }}</v-card-title>
+                      <v-card-subtitle
+                        >{{ n.createdAt }}
+                        <div class="float-right">
+                          <v-icon color="pink" class="pr-2">mdi-heart</v-icon
+                          >{{ n.favCount }}
+                        </div>
+                      </v-card-subtitle>
                       <v-card-text>{{ n.headline }}</v-card-text>
                     </nuxt-link>
                   </v-card>
@@ -115,6 +122,18 @@ export default {
           // this.novels = doc.data()
           const raw = doc.data()
           raw.url = '/posts/' + doc.id
+          raw.createdAt =
+            String(raw.createdAt.toDate().getFullYear()) +
+            '年' +
+            String(raw.createdAt.toDate().getMonth() + 1) +
+            '月' +
+            String(raw.createdAt.toDate().getDate()) +
+            '日'
+          if ('favoritedBy' in raw) {
+            raw.favCount = raw.favoritedBy.length
+          } else {
+            raw.favCount = 0
+          }
           arrays.push(raw)
         })
       })
@@ -127,6 +146,18 @@ export default {
           // this.novels = doc.data()
           const raw = doc.data()
           raw.url = '/posts/' + doc.id
+          raw.createdAt =
+            String(raw.createdAt.toDate().getFullYear()) +
+            '年' +
+            String(raw.createdAt.toDate().getMonth() + 1) +
+            '月' +
+            String(raw.createdAt.toDate().getDate()) +
+            '日'
+          if ('favoritedBy' in raw) {
+            raw.favCount = raw.favoritedBy.length
+          } else {
+            raw.favCount = 0
+          }
           favoriteArray.push(raw)
         })
       })
