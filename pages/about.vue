@@ -3,9 +3,9 @@
     <v-card width="100%">
       <v-card-title class="headline">About</v-card-title>
       <v-card-text>
-        <p class="title mt-8">Essay Batonとは？</p>
+        <p class="title mt-8">Novel Batonとは？</p>
         <p>
-          Essay
+          Novel
           Batonは、1人が1文ずつ書いて10投稿で1つの小説を完成させるゲームです。1回の投稿は140字以内です。
         </p>
         <p class="title mt-12">使い方</p>
