@@ -96,7 +96,7 @@ export default {
     this.newly_novels = arrays
     const favoriteArrays = []
     db.collection('novel')
-      .orderBy('favoriteCount')
+      .orderBy('favoriteCount', 'desc')
       .limit(100)
       .get()
       .then(function(querySnapshot) {
