@@ -1,27 +1,35 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
-  mode: 'universal',
+  mode: 'spa',
   /*
    ** Headers of the page
    */
   head: {
-    htmlAttrs: {
-      prefix: 'og: http://ogp.me/ns#'
-    },
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+    meta: [{
+        charset: 'utf-8'
+      },
+      {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1'
+      },
       {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
       },
-      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-      { hid: 'twitter:site', name: 'twitter:site', content: '@0810kayo' },
-      { hid: 'og:type', property: 'og:type', content: 'website' },
+      {
+        hid: 'twitter:card',
+        name: 'twitter:card',
+        content: 'summary'
+      },
+      {
+        hid: 'og:type',
+        property: 'og:type',
+        content: 'website'
+      },
       {
         hid: 'og:title',
         property: 'og:title',
@@ -30,7 +38,7 @@ export default {
       {
         hid: 'og:url',
         property: 'og:url',
-        content: 'http://novel-baton.web.app'
+        content: 'https://novel-baton.web.app'
       },
       {
         hid: 'og:description',
@@ -40,16 +48,26 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'static/twitter_card.png'
+        content: 'https://novel-baton.web.app/twitter_card.png'
       },
-      { hid: 'og:site_name', name: 'og:site_name', content: 'novel-baton' }
+      {
+        hid: 'og:site_name',
+        name: 'og:site_name',
+        content: 'novel-baton'
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [{
+      rel: 'icon',
+      type: 'image/x-icon',
+      href: '/favicon.ico'
+    }]
   },
   /*
    ** Customize the progress-bar color
    */
-  loading: { color: '#fff' },
+  loading: {
+    color: '#fff'
+  },
   /*
    ** Global CSS
    */
@@ -57,7 +75,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{ src: '~plugins/persistedstate.js', ssr: false }],
+  plugins: [{
+    src: '~plugins/persistedstate.js',
+    ssr: false
+  }],
   /*
    ** Nuxt.js dev-modules
    */
