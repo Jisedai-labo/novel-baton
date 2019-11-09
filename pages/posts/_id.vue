@@ -262,7 +262,7 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style>
 .circle .v-image__image {
   border-radius: 50%;
 }
