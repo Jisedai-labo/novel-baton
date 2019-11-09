@@ -48,7 +48,7 @@ export default {
       {
         hid: 'og:image',
         property: 'og:image',
-        content: 'https://novel-baton.web.app/twitter_card.png'
+        content: 'https://novel-baton.web.app/twitter_card.png?123'
       },
       {
         hid: 'og:site_name',
