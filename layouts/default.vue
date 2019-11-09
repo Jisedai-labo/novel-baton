@@ -67,7 +67,9 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
-      this.userURL = '/users/' + user.uid
+      if (user) {
+        this.userURL = '/users/' + user.uid
+      }
     })
   },
   methods: {
@@ -101,6 +103,7 @@ export default {
                 .set(data)
             }
           })
+          location.reload()
         })
     },
     logout() {
@@ -109,6 +112,7 @@ export default {
         .signOut()
         .then(() => {
           this.setUser(null)
+          location.reload()
         })
         .catch((error) => {
           alert(error)
