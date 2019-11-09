@@ -3,7 +3,7 @@
     <v-form ref="form" v-model="valid">
       <v-card-title class="headline">{{ title }}</v-card-title>
       <v-card-text>
-        <div class="float-right">
+        <div v-if="isAuthenticated" class="float-right">
           <v-btn
             v-if="isLiked"
             text
@@ -108,8 +108,9 @@ export default {
     newContent: '',
     postUsers: [],
     photoURL: [],
-    isLiked: true,
-    createdAt: []
+    isLiked: false,
+    createdAt: [],
+    updatedAt: ''
   }),
   computed: {
     ...mapState(['user']),
