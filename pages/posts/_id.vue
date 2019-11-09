@@ -23,8 +23,10 @@
             <v-icon color="pink">mdi-heart-outline</v-icon>
           </v-btn>
         </div>
-        <a class="twitter-share-button" @click="popUpTweetWindow">Tweet</a>
-        <p class="subtitle">更新日：{{ updatedAt }}</p>
+        <a class="-shartwittere-button twitter-link" @click="popUpTweetWindow">
+          <v-icon color="#fff" size="20">mdi-twitter</v-icon>Tweet
+        </a>
+        <p class="subtitle mt-2">更新日：{{ updatedAt }}</p>
         <p v-if="contents.length < 10" class="title text--primary mt-12">
           文章
         </p>
@@ -275,5 +277,18 @@ export default {
 <style>
 .circle .v-image__image {
   border-radius: 50%;
+}
+.twitter-link {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: #1ea1ed;
+  color: #fff !important;
+}
+.twitter-link .v-icon {
+  margin-right: 5px;
+}
+.twitter-link:hover {
+  opacity: 0.8;
 }
 </style>
