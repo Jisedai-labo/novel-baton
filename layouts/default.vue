@@ -11,7 +11,7 @@
           <v-icon>mdi-help-box</v-icon>
         </v-btn>
         <v-btn v-if="isAuthenticated" text :to="userURL">
-          <v-icon>mdi-human-greeting</v-icon>
+          <v-img :src="photoURL" width="30"></v-img>
         </v-btn>
         <v-btn v-if="isAuthenticated" text @click.stop="dialog = true">
           <v-icon>mdi-logout-variant</v-icon>
@@ -57,7 +57,8 @@ export default {
   data() {
     return {
       userURL: '',
-      dialog: false
+      dialog: false,
+      photoURL: []
     }
   },
   computed: {
@@ -69,6 +70,7 @@ export default {
       this.setUser(user)
       if (user) {
         this.userURL = '/users/' + user.uid
+        this.photoURL = user.photoURL.replace('normal', '400x400')
       }
     })
   },
