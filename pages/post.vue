@@ -78,7 +78,8 @@ export default {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           userUid: user.uid,
-          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
+          favoriteCount: 0
         })
         .then(function(docRef) {
           docRef.collection('content').add({
