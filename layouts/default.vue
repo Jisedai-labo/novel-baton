@@ -44,7 +44,7 @@
         <nuxt />
       </v-container>
     </v-content>
-    <v-footer app>
+    <v-footer app absolute>
       <span>&copy; gyouza</span>
     </v-footer>
   </v-app>
