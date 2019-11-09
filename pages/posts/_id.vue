@@ -42,6 +42,7 @@
                     :src="content.photoURL"
                     aspect-ratio="1"
                     max-width="100"
+                    class="circle"
                   ></v-img>
                 </nuxt-link>
               </v-col>
@@ -246,3 +247,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.circle .v-image__image {
+  border-radius: 50%;
+}
+</style>
