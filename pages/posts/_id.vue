@@ -89,6 +89,9 @@
         </p>
       </v-card-actions>
     </v-form>
+    <div v-if="$store.state.post">
+      <v-snackbar v-model="$store.state.post">投稿が完了しました</v-snackbar>
+    </div>
   </v-card>
 </template>
 <script>
@@ -242,7 +245,19 @@ export default {
           posts: firebase.firestore.FieldValue.arrayUnion(this.$route.params.id)
         })
       this.setPost(true)
-      this.$router.push({ path: '/' })
+
+      this.contents.push({
+        body: this.newContent,
+        order: this.nextOrder,
+        photoURL: this.user.photoURL.replace('normal', '400x400'),
+        userURL: '/users/' + this.postUsers.id
+      })
+      this.newContent = ''
+      // this.$router.push({ path: '/' })
+      // location.reload()
+    },
+    closeModal() {
+      this.setPost(false)
     }
   }
 }
