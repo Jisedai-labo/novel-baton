@@ -101,6 +101,7 @@ export default {
                 .set(data)
             }
           })
+          location.reload()
         })
     },
     logout() {
@@ -109,6 +110,7 @@ export default {
         .signOut()
         .then(() => {
           this.setUser(null)
+          location.reload()
         })
         .catch((error) => {
           alert(error)

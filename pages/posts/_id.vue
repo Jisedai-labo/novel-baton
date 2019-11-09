@@ -3,18 +3,26 @@
     <v-card-title class="headline">{{ title }}</v-card-title>
     <v-card-text>
       <div class="float-right">
-        <v-btn
-          v-if="isLiked"
-          text
-          class="pa-0"
-          style="min-width: auto;"
-          @click="dislike"
-        >
-          <v-icon color="pink">mdi-heart</v-icon>
-        </v-btn>
-        <v-btn v-else text class="pa-0" style="min-width: auto;" @click="like">
-          <v-icon color="pink">mdi-heart-outline</v-icon>
-        </v-btn>
+        <div v-if="isAuthenticated">
+          <v-btn
+            v-if="isLiked"
+            text
+            class="pa-0"
+            style="min-width: auto;"
+            @click="dislike"
+          >
+            <v-icon color="pink">mdi-heart</v-icon>
+          </v-btn>
+          <v-btn
+            v-else
+            text
+            class="pa-0"
+            style="min-width: auto;"
+            @click="like"
+          >
+            <v-icon color="pink">mdi-heart-outline</v-icon>
+          </v-btn>
+        </div>
       </div>
       <p class="subtitle">更新日：{{ updatedAt }}</p>
       <p v-if="contents.length < 10" class="title text--primary mt-12">文章</p>
@@ -98,8 +106,9 @@ export default {
     newContent: '',
     postUsers: [],
     photoURL: [],
-    isLiked: true,
-    createdAt: []
+    isLiked: false,
+    createdAt: [],
+    updatedAt: ''
   }),
   computed: {
     ...mapState(['user']),
