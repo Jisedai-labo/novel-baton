@@ -252,7 +252,7 @@ export default {
         photoURL: this.user.photoURL.replace('normal', '400x400'),
         userURL: '/users/' + this.postUsers.id
       })
-      this.newContent = ''
+      this.newContent = ' '
       // this.$router.push({ path: '/' })
       // location.reload()
     },
