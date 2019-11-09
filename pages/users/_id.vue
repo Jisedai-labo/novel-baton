@@ -8,7 +8,7 @@
         <v-col cols="9" sm="10">
           <p class="title mb-1">{{ user.name }}</p>
           <p class="body-1 mb-1">初回ログイン：{{ createdAt }}</p>
-          <a :href="twitterID">
+          <a :href="twitterID" target="_blank">
             <v-icon color="#1ea1ed">mdi-twitter</v-icon>
           </a>
         </v-col>
@@ -38,8 +38,8 @@
                       style="height: 100%;"
                     >
                       <v-card-title>{{ n.title }}</v-card-title>
-                      <v-card-subtitle
-                        >{{ n.createdAt }}
+                      <v-card-subtitle>
+                        {{ n.createdAt }}
                         <div class="float-right">
                           <v-icon
                             v-if="n.order >= 10"
@@ -47,8 +47,8 @@
                             class="pr-2"
                             >mdi-book-lock</v-icon
                           >
-                          <v-icon color="pink" class="pr-2">mdi-heart</v-icon
-                          >{{ n.favCount }}
+                          <v-icon color="pink" class="pr-2">mdi-heart</v-icon>
+                          {{ n.favCount }}
                         </div>
                       </v-card-subtitle>
                       <v-card-text>{{ n.headline }}</v-card-text>
