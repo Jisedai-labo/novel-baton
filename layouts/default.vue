@@ -45,7 +45,7 @@
       </v-container>
     </v-content>
     <v-footer app>
-      <span>&copy; 201911</span>
+      <span>&copy; gyouza</span>
     </v-footer>
   </v-app>
 </template>
