@@ -5,6 +5,35 @@ export default {
   /*
    ** Headers of the page
    */
+  head(){
+    return {
+      meta: [
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'og:type', property: 'og:type', content: 'website' },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: 'novel-baton'
+        },
+        {
+          hid: 'og:url',
+          property: 'og:url',
+          content: 'http://novel-baton.web.app'
+        },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: 'Novel Batonは、1人が1文ずつ書いて10投稿で1つの小説を完成させるゲームです。1回の投稿は140字以内です。'
+        },
+        {
+          hid: 'og:image',
+          property: 'og:image',
+          content: 'static/twitter_card.png'
+        },
+        { hid: 'og:site_name', name: 'og:site_name', content: 'novel-baton' }
+      ]
+    }
+  },
   head: {
     htmlAttrs: {
       prefix: 'og: http://ogp.me/ns#'
@@ -18,31 +47,7 @@ export default {
         hid: 'description',
         name: 'description',
         content: process.env.npm_package_description || ''
-      },
-      { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-      { hid: 'twitter:site', name: 'twitter:site', content: '@0810kayo' },
-      { hid: 'og:type', property: 'og:type', content: 'website' },
-      {
-        hid: 'og:title',
-        property: 'og:title',
-        content: 'novel-baton'
-      },
-      {
-        hid: 'og:url',
-        property: 'og:url',
-        content: 'http://novel-baton.web.app'
-      },
-      {
-        hid: 'og:description',
-        property: 'og:description',
-        content: 'Novel Batonは、1人が1文ずつ書いて10投稿で1つの小説を完成させるゲームです。1回の投稿は140字以内です。'
-      },
-      {
-        hid: 'og:image',
-        property: 'og:image',
-        content: 'static/twitter_card.png'
-      },
-      { hid: 'og:site_name', name: 'og:site_name', content: 'novel-baton' }
+      }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
