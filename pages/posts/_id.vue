@@ -264,8 +264,7 @@ export default {
         userURL: '/users/' + this.postUsers.id
       })
       this.newContent = ' '
-      // this.$router.push({ path: '/' })
-      // location.reload()
+      scrollTo(0, 0)
     },
     closeModal() {
       this.setPost(false)
