@@ -23,6 +23,7 @@
             <v-icon color="pink">mdi-heart-outline</v-icon>
           </v-btn>
         </div>
+        <a class="twitter-share-button" @click="popUpTweetWindow">Tweet</a>
         <p class="subtitle">更新日：{{ updatedAt }}</p>
         <p v-if="contents.length < 10" class="title text--primary mt-12">
           文章
@@ -110,7 +111,9 @@ export default {
     photoURL: [],
     isLiked: false,
     createdAt: [],
-    updatedAt: ''
+    updatedAt: '',
+    TweetData: '',
+    TweetURL: ''
   }),
   computed: {
     ...mapState(['user']),
@@ -190,6 +193,14 @@ export default {
   },
   methods: {
     ...mapActions(['setPost']),
+    popUpTweetWindow() {
+      const hereURL = 'https://novel-baton.web.app' + this.$route.path
+      const hashtags = 'novelbaton'
+
+      const url = `https://twitter.com/intent/tweet?hashtags=${hashtags}&text=${this.title}&url=${hereURL}`
+      const option = 'status=1,width=818,height=400,top=100,left=100'
+      window.open(url, 'twitter', option)
+    },
     like() {
       const db = firebase.firestore()
       db.collection('novel')
