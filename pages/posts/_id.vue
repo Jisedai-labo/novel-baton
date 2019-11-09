@@ -238,7 +238,8 @@ export default {
         .doc(this.$route.params.id)
         .update({
           postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
-          updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          order: this.nextOrder
         })
       db.collection('novel')
         .doc(this.$route.params.id)
@@ -265,6 +266,7 @@ export default {
       })
       this.newContent = ' '
       scrollTo(0, 0)
+      this.nextOrder = this.nextOrder + 1
     },
     closeModal() {
       this.setPost(false)

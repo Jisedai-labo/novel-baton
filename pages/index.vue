@@ -24,8 +24,11 @@
                     <v-card-subtitle
                       >{{ t.createdAt }}
                       <div class="float-right">
-                        <v-icon color="pink" class="pr-2">mdi-heart</v-icon
-                        >{{ t.favCount }}
+                        <v-icon v-if="t.order >= 10" color="black" class="pr-2"
+                          >mdi-book-lock</v-icon
+                        >
+                        <v-icon color="pink" class="pr-2">mdi-heart</v-icon>
+                        {{ t.favCount }}
                       </div>
                     </v-card-subtitle>
                     <v-card-text>{{ t.headline }}</v-card-text>
