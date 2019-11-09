@@ -1,42 +1,47 @@
 <template>
   <v-card class="mx-auto py-6">
     <div v-if="isAuthenticated">
-      <v-card-title class="headline">新規投稿</v-card-title>
-      <v-card-text>
-        <p>作成日：2019/11/02</p>
-        <p class="title text--primary">タイトル</p>
-        <div class="text--primary">
-          <v-text-field
-            v-model="title"
-            :rules="titleRules"
-            label="20文字以内で入力してね"
-            required
-            filled
-          />
-        </div>
-        <p class="title text--primary mt-6">文章</p>
-        <div class="text--primary">
-          <v-textarea
-            v-model="content"
-            :rules="postRules"
-            label="140文字以内で入力してね"
-            rows="10"
-            filled
-          />
-        </div>
-      </v-card-text>
-      <v-card-actions class="justify-center">
-        <v-btn raised large color="grey lighten-1 accent-4" @click="goback"
-          >戻る</v-btn
-        >
-        <v-btn raised large color="primary accent-4" @click="post"
-          >作成する</v-btn
-        >
-      </v-card-actions>
+      <v-form ref="form" v-model="valid">
+        <v-card-title class="headline">新規投稿</v-card-title>
+        <v-card-text>
+          <p>作成日：2019/11/02</p>
+          <p class="title text--primary">タイトル</p>
+          <div class="text--primary">
+            <v-text-field
+              v-model="title"
+              :rules="titleRules"
+              label="20文字以内で入力してね"
+              required
+              filled
+            />
+          </div>
+          <p class="title text--primary mt-6">文章</p>
+          <div class="text--primary">
+            <v-textarea
+              v-model="content"
+              :rules="postRules"
+              label="140文字以内で入力してね"
+              rows="10"
+              filled
+            />
+          </div>
+        </v-card-text>
+        <v-card-actions class="justify-center">
+          <v-btn raised large color="grey lighten-1 accent-4" @click="goback"
+            >戻る</v-btn
+          >
+          <v-btn
+            :disabled="!valid"
+            raised
+            large
+            color="primary accent-4"
+            @click="post"
+            >作成する</v-btn
+          >
+        </v-card-actions>
+      </v-form>
     </div>
-    <div v-else>
-      投稿するにはログインが必要です。
-    </div>
+    <div v-else>投稿するにはログインが必要です。</div>
   </v-card>
 </template>
 <script>
@@ -78,7 +83,8 @@ export default {
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
           updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           userUid: user.uid,
-          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid)
+          postUsers: firebase.firestore.FieldValue.arrayUnion(user.uid),
+          favoriteCount: 0
         })
         .then(function(docRef) {
           docRef.collection('content').add({

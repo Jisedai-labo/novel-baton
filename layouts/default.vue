@@ -45,7 +45,7 @@
       </v-container>
     </v-content>
     <v-footer app>
-      <span>&copy; 201911</span>
+      <span>&copy; gyouza</span>
     </v-footer>
   </v-app>
 </template>
@@ -67,7 +67,9 @@ export default {
   mounted() {
     firebase.auth().onAuthStateChanged((user) => {
       this.setUser(user)
-      this.userURL = '/users/' + user.uid
+      if (user) {
+        this.userURL = '/users/' + user.uid
+      }
     })
   },
   methods: {

@@ -1,9 +1,9 @@
 <template>
   <v-card class="mx-auto py-6">
-    <v-card-title class="headline">{{ title }}</v-card-title>
-    <v-card-text>
-      <div class="float-right">
-        <div v-if="isAuthenticated">
+    <v-form ref="form" v-model="valid">
+      <v-card-title class="headline">{{ title }}</v-card-title>
+      <v-card-text>
+        <div v-if="isAuthenticated" class="float-right">
           <v-btn
             v-if="isLiked"
             text
@@ -23,70 +23,71 @@
             <v-icon color="pink">mdi-heart-outline</v-icon>
           </v-btn>
         </div>
-      </div>
-      <p class="subtitle">更新日：{{ updatedAt }}</p>
-      <p v-if="contents.length < 10" class="title text--primary mt-12">文章</p>
-      <p v-if="contents.length < 10">
-        現在{{ contents.length }}投稿です。あと{{
-          10 - contents.length
-        }}投稿で完結させてください。
-      </p>
-      <p v-else class="title text--primary mt-12">
-        文章（完結）
-      </p>
-      <div class="text--primary">
-        <div v-for="(content, index) in contents" :key="index">
-          <v-row>
-            <v-col cols="3" sm="2" lg="1">
-              <nuxt-link class="d-block" :to="content.userURL">
-                <v-img
-                  :src="content.photoURL"
-                  aspect-ratio="1"
-                  max-width="100"
-                ></v-img>
-              </nuxt-link>
-            </v-col>
-            <v-col cols="9" sm="10" lg="11">
-              <p>{{ content.body }}</p>
-            </v-col>
-          </v-row>
-        </div>
-      </div>
-      <div v-if="contents.length < 10 && isAuthenticated">
-        <p class="title text--primary mt-12">文章を追加する</p>
+        <p class="subtitle">更新日：{{ updatedAt }}</p>
+        <p v-if="contents.length < 10" class="title text--primary mt-12">
+          文章
+        </p>
+        <p v-if="contents.length < 10">
+          現在{{ contents.length }}投稿です。あと{{
+            10 - contents.length
+          }}投稿で完結させてください。
+        </p>
+        <p v-else class="title text--primary mt-12">文章（完結）</p>
         <div class="text--primary">
-          <v-textarea
-            v-model="newContent"
-            :rules="postRules"
-            label="140文字以内で入力してね"
-            rows="10"
-            filled
-          ></v-textarea>
+          <div v-for="(content, index) in contents" :key="index">
+            <v-row>
+              <v-col cols="3" sm="2" lg="1">
+                <nuxt-link class="d-block" :to="content.userURL">
+                  <v-img
+                    :src="content.photoURL"
+                    aspect-ratio="1"
+                    max-width="100"
+                  ></v-img>
+                </nuxt-link>
+              </v-col>
+              <v-col cols="9" sm="10" lg="11">
+                <p>{{ content.body }}</p>
+              </v-col>
+            </v-row>
+          </div>
         </div>
-      </div>
-    </v-card-text>
-    <v-card-actions class="justify-center">
-      <v-btn
-        v-if="contents.length < 10 && isAuthenticated"
-        raised
-        large
-        color="grey lighten-1 accent-4"
-        @click="goback"
-        >戻る</v-btn
-      >
-      <v-btn
-        v-if="contents.length < 10 && isAuthenticated"
-        raised
-        large
-        color="primary accent-4"
-        @click="post"
-        >追加する</v-btn
-      >
-      <p v-if="contents.length >= 10">おわり</p>
-      <p v-if="contents.length < 10 && !isAuthenticated">
-        小説の続きを投稿したい場合はログインをしてください。
-      </p>
-    </v-card-actions>
+        <div v-if="contents.length < 10 && isAuthenticated">
+          <p class="title text--primary mt-12">文章を追加する</p>
+          <div class="text--primary">
+            <v-textarea
+              v-model="newContent"
+              :rules="postRules"
+              label="140文字以内で入力してね"
+              rows="10"
+              filled
+            ></v-textarea>
+          </div>
+        </div>
+      </v-card-text>
+      <v-card-actions class="justify-center">
+        <v-btn
+          v-if="contents.length < 10 && isAuthenticated"
+          raised
+          large
+          color="grey lighten-1 accent-4"
+          @click="goback"
+          >戻る</v-btn
+        >
+        <v-btn
+          v-if="contents.length < 10 && isAuthenticated"
+          :disabled="!valid"
+          raised
+          large
+          color="primary accent-4"
+          @click="post"
+          >追加する</v-btn
+        >
+        <p v-if="contents.length >= 10">おわり</p>
+        <p v-if="contents.length < 10 && !isAuthenticated">
+          小説の続きを投稿したい場合はログインをしてください。
+        </p>
+      </v-card-actions>
+    </v-form>
   </v-card>
 </template>
 <script>
