@@ -105,7 +105,7 @@ export default {
                 .set(data)
             }
           })
-          location.reload()
+         // location.reload()
         })
     },
     logout() {
