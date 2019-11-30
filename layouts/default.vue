@@ -70,7 +70,10 @@ export default {
       this.setUser(user)
       if (user) {
         this.userURL = '/users/' + user.uid
-        this.photoURL = user.photoURL.replace('normal', '400x400')
+        this.photoURL = user.providerData[0].photoURL.replace(
+          'normal',
+          '400x400'
+        )
       }
     })
   },
@@ -88,14 +91,14 @@ export default {
             if (doc.exists) {
               docRef.update({
                 name: result.user.displayName,
-                photoURL: result.user.photoURL,
+                photoURL: result.user.providerData[0].photoURL,
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 twitterId: result.additionalUserInfo.profile.screen_name
               })
             } else {
               const data = {
                 name: result.user.displayName,
-                photoURL: result.user.photoURL,
+                photoURL: result.user.providerData[0].photoURL,
                 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
                 twitterId: result.additionalUserInfo.profile.screen_name
@@ -105,7 +108,6 @@ export default {
                 .set(data)
             }
           })
-         // location.reload()
         })
     },
     logout() {
